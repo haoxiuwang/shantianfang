@@ -1,9 +1,10 @@
 
 import fs from "fs"
 import path from "path"
-const pagesDir = path.resolve('src/pages')
-const outputFile = path.resolve('src/routeMap.js')
-
+const pagesDir = path.resolve('./src/pages')
+console.log({pagesDir})
+const outputFile = path.resolve('./framework/routeMap.js')
+console.log({outputFile})
 // 转换文件名为路由路径
 function filenameToPath(filename) {
   const name = filename.replace(/\.(js|jsx|tsx)$/, '')
@@ -17,7 +18,7 @@ let content = 'export const routeMap = {\n'
 
 for (const file of files) {
   const routePath = filenameToPath(file)
-  content += `  '${routePath}': () => import('./pages/${file}'),\n`
+  content += `  '${routePath}': () => import('../src/pages/${file}'),\n`
 }
 
 content += '}\n'
