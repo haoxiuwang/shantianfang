@@ -2,9 +2,9 @@
 import fs from "fs"
 import path from "path"
 const pagesDir = path.resolve('./src/pages')
-console.log({pagesDir})
+
 const outputFile = path.resolve('./framework/routeMap.js')
-console.log({outputFile})
+
 // 转换文件名为路由路径
 function filenameToPath(filename) {
   const name = filename.replace(/\.(js|jsx|tsx)$/, '')

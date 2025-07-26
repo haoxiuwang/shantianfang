@@ -1,7 +1,10 @@
 import { navigate } from "./useRoute";
-export default function Link({href,onClick,className,...props}) {
-    return <button {...{props}} onClick={(e)=>{
-        if(onClick)onClick()
-            navigate(href)
-    }} className={`cursor-pointer ${className}`}></button>
+export default function Link({href,onClick,className,children}) {
+    return <button onClick={(e)=>{
+        if (onClick) 
+            if (onClick()) return
+        // confirm("link")
+        
+        navigate(href)
+    }} className={`cursor-pointer ${className}`}>{children}</button>
 }

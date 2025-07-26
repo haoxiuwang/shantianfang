@@ -1,6 +1,5 @@
 export const routeMap = {
-  '/about': () => import('../src/pages/About.jsx'),
-  '/blog': () => import('../src/pages/Blog.jsx'),
-  '/blogs': () => import('../src/pages/Blogs.jsx'),
+  '/book': () => import('../src/pages/book.jsx'),
+  '/chapter': () => import('../src/pages/chapter.jsx'),
   '/': () => import('../src/pages/Home.jsx'),
 }
