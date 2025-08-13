@@ -1,8 +1,8 @@
 import { navigate } from "./useRoute";
 export default function Link({href,onClick,className,children}) {
-    return <button onClick={(e)=>{
+    return <button onClick={async(e)=>{
         if (onClick) 
-            if (onClick()) return
+            if (await onClick()) return
         // confirm("link")
         
         navigate(href)

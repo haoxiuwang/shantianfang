@@ -14,14 +14,13 @@ export default function Books({ctx}) {
                     <button className=' font-light text-gray-200 text-lg bg-slate-400 px-8'>收录 {books.length} 部</button> 
                 </div>
                 <div className='flex flex-col place-items-center space-y-8 p-24 px-8 bg-slate-400/80'>
-                {books.map((book, i) => {
-                                  
+                {books.map((book, i) => {                                  
                     return (
                     <div className={`cursor-pointer w-full rounded-lg ${ctx.last.bookid==book.name?"border-2 border-solid border-green-400":""}`}  key={i} >
                         <Link onClick={
-                        ()=>{                              
-                            ctx.book = book
-                            if(book.freed)return true          
+                        ()=>{  
+                            if(book.freed)return true                            
+                            ctx.book = book                                      
                         }
                     } className=" w-full" href={`/book`}>
                             <div className='flex flex-col bg-slate-200 place-items-center p-4 space-y-2 text-gray-400 text-sm font-light'>
@@ -51,13 +50,9 @@ export default function Books({ctx}) {
                                                 else{
                                                     ctx.freed = [book.name]
                                                 }
-                                                // ctx.freed = ctx.freed!=null?ctx.freed.push(book.name):[book.name]
-                                                console.log(ctx.freed,"000")
-                                                
                                             }  
                                             else {
-                                                ctx.freed = ctx.freed.filter((item)=>item!=book.name)                                        
-                                               
+                                                ctx.freed = ctx.freed.filter((item)=>item!=book.name)  
                                             }
                                             setStorage("freed",ctx.freed)
                                             book.freed = book.freed ? false : true

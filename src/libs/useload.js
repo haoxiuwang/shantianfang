@@ -3,30 +3,27 @@ import books from "./books.js"
 import loadDB from "./loadDB.js"
 import config from "./config.js"
 import initAudio from "./initaudio.js"
-import useDownload from "./usedownload.js"
+import download from "./download.js"
 import { loadStorage, setStorage } from "./storage.js";
 import { useRoute, navigate } from '../../framework/useRoute.js'
 import usePage from '../../framework/usePage.js'
 
 
 export default function useLoad() {
-
     const [a, refresh] = useState(false)
     const [ctx] = useState({
-        books, setStorage, total_size:0,
+        download,
+        books, setStorage, total_size:0, limit:3,
         refresh: () => { refresh(pre => !pre) },
         audio: { current: null, load: null, next: null, ratio: 0 },
         last: { bookid: null, chapterid: null },
         downloads: { _book: null, _chapter: null, "all_tasks": null, "waiting_tasks": null, success: 0, fail: 0 }
     })
     const path = useRoute()
-    const Page = usePage(path)
- 
+    const Page = usePage(path) 
     ctx.path = path
     ctx.Page = Page
     ctx.navigate = navigate
-    const { start, pause } = useDownload(ctx)
-    ctx.downloads.commands = { start, pause }
     const init_audio = initAudio(ctx)
     useEffect(() => {
         if (!ctx) return
@@ -49,6 +46,11 @@ export default function useLoad() {
                 })
 
             })
+          
+            
+            ctx.books.map((book)=>{                              
+                book.chapters.map((chapter)=>chapter.book = book)
+            })
             await loadDB(ctx)
             loadStorage([["last", true], ["freed", true]], ctx)
             if (ctx.freed)
@@ -58,6 +60,9 @@ export default function useLoad() {
                             return book.freed = true
                     })
                 })
+            if(ctx.last.chapterid){
+                ctx.navigate("/chapter")
+            }
             ctx.refresh()
         }
 

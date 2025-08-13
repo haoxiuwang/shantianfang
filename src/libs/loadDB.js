@@ -8,7 +8,7 @@ export default async (ctx) => {
     const _db = await db.open()
     if (!_db) return
     const _urls = await db.getAllKeys("audios")
-    console.log({_urls})
+  
     if (_urls && _urls.length > 0)
         _urls.forEach((_url) => {
             const _book = ctx.books.find((book) => {

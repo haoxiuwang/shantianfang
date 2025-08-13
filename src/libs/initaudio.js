@@ -10,35 +10,33 @@ export default function initAudio( ctx ) {
      }
     ctx.audio.next = (val = 1) => {
         if (!ctx.book) return
+        
+        
         const last = ctx.last
         let x = parseInt(last.chapterid) + val
-        if (val>0&&x > ctx.book.chapters.length-1) {
+        if (val>0&&x > ctx.book.chapters.length) {
             ctx.navigate("/")            
             return
         }
         if(val<0&&x<1)return
         x = x < 10 ? "00" + x : x < 100 ? "0" + x : "" + x
         ctx.last.chapterid = x
-        ctx.audio.current.paused||ctx.audio.current.pause()
-        console.log("next-------------",x)
         ctx.setStorage("last", { bookid: last.bookid, chapterid: x })
+        ctx.chapter = null
         ctx.refresh()
     }
     const init = ()=>{
         const audio = new Audio()
 
         audio.oncanplay = () => {
-            console.log("canplay----------")
             ctx.audio.current.play()
             ctx.refresh()
         }
         audio.onended = () => { 
-            console.log("onended----------")
             ctx.audio.current.paused||ctx.audio.current.pause()
             ctx.audio.next(1) 
             
-        }
-        
+        } 
         ctx.audio.current = audio
     }
     return init
