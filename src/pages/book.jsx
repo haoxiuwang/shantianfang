@@ -4,7 +4,7 @@ import { setStorage } from '../libs/storage.js';
 
 
 export default function Book({ctx}){
-    const book = ctx.book
+    let book = ctx.book
     if(!ctx.book) 
        ctx.book = book = ctx.books.find(({name})=>name==ctx.last.bookid)    
     return (

@@ -21,7 +21,7 @@ export default function App() {
         {Page&&<Page.default {...{ctx}}/>}
       </Suspense>
      </main>
-    {ctx.last.bookid&&<Footer {...{ctx}}/> }
+    {ctx.book&&<Footer {...{ctx}}/> }
     </div>
   )
 }
